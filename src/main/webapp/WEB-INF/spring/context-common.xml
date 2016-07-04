@@ -1,48 +1,75 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-        http://www.springframework.org/schema/beans     
-        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	xsi:schemaLocation="http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
         http://www.springframework.org/schema/context 
-        http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
 
-    <!-- JSON View -->
-<!-- 	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" >
-		<property name="contentType" value="application/json; charset=UTF-8" />
-	</bean> -->
-	<!-- json data 를 받기 위해서 추가  -->
-	<!-- 참고: https://github.com/dschulten/spring-hateoas-rest-service-sample/blob/master/rest-service-war/src/main/webapp/WEB-INF/rest-service-servlet.xml -->
-<!-- 	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
-		<property name="messageConverters">
+	<bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="favorPathExtension" value="true" />
+		<property name="favorParameter" value="false" /><!-- url?format=(do|xml|json|file) -->
+		<property name="defaultContentType" value="text/html" />
+		<property name="mediaTypes">
+			<map>
+				<entry key="do" value="text/html" />
+				<entry key="json" value="application/json" />
+				<entry key="file" value="application/octet-stream" />
+			</map>
+		</property>
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="contentNegotiationManager" ref="contentNegotiationManager" />
+		<property name="viewResolvers">
 			<list>
-				<ref bean="jsonConverter" />
+				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+				<bean
+					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="contentType" value="text/html; charset=UTF-8" />
+					<property name="prefix" value="/WEB-INF/jsp/" />
+					<property name="suffix" value=".jsp" />
+					<property name="viewClass"
+						value="org.springframework.web.servlet.view.JstlView" />
+				</bean>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+					<property name="prettyPrint" value="true" />
+				</bean>
 			</list>
 		</property>
 	</bean>
-	<bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-		<property name="supportedMediaTypes" value="application/json" />
-		<property name="objectMapper" ref="jacksonObjectMapper" />
-	</bean>
-	<bean id="jacksonObjectMapper" class="org.codehaus.jackson.map.ObjectMapper" /> -->
-	
-	<!-- <mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/profile/gna/**"/>
-			<bean class="profile.gna.SessionCheckInterceptor"/>
-		</mvc:interceptor>
-	</mvc:interceptors> -->
+
+
+	<!-- JSON View -->
+	<!-- <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" 
+		> <property name="contentType" value="application/json; charset=UTF-8" /> 
+		</bean> -->
+	<!-- json data 를 받기 위해서 추가 -->
+	<!-- 참고: https://github.com/dschulten/spring-hateoas-rest-service-sample/blob/master/rest-service-war/src/main/webapp/WEB-INF/rest-service-servlet.xml -->
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> 
+		<property name="messageConverters"> <list> <ref bean="jsonConverter" /> </list> 
+		</property> </bean> <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"> 
+		<property name="supportedMediaTypes" value="application/json" /> <property 
+		name="objectMapper" ref="jacksonObjectMapper" /> </bean> <bean id="jacksonObjectMapper" 
+		class="org.codehaus.jackson.map.ObjectMapper" /> -->
+
+	<!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/profile/gna/**"/> 
+		<bean class="profile.gna.SessionCheckInterceptor"/> </mvc:interceptor> </mvc:interceptors> -->
 
 	<!-- MultipartResolver 설정 -->
-    <!-- <bean id="multipartResolver" 
-        class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <property name="maxUploadSize" value="100000000" />
-        <property name="maxInMemorySize" value="100000000" />
-    </bean> -->
-    
-    <!-- <bean id="multipartResolver"
-		class="is.hax.spring.web.multipart.StreamingMultipartResolver">
-	</bean> -->
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+		<property name="maxUploadSize" value="100000000" /> <property name="maxInMemorySize" 
+		value="100000000" /> </bean> -->
+
+	<!-- <bean id="multipartResolver" class="is.hax.spring.web.multipart.StreamingMultipartResolver"> 
+		</bean> -->
 </beans>
