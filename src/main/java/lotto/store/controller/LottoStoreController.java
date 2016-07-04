@@ -13,4 +13,9 @@ public class LottoStoreController {
 	public String getAddCustomerPage(ModelMap model) {
 		return prefix + "list";
 	}
+	
+	@RequestMapping(value = "/json")
+	public String getJson(ModelMap model) {
+		return prefix + "list";
+	}
 }
