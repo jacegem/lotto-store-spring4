@@ -1,3 +1,10 @@
+
+포트사용 프로세스 종료
+```
+FOR /F "tokens=5 delims= " %P IN ('netstat -nao ^| findstr 127.0.0.1:8080 ^| findstr LISTENING') DO TaskKill.exe /F /PID %P
+```
+
+
 App Engine Java Application
 Copyright (C) 2010-2012 Google Inc.
 

@@ -12,18 +12,18 @@
 
 	
 	
-	<context:component-scan base-package="**.controller" />
+	<context:component-scan base-package="**.controller" />	
 	
 	<mvc:annotation-driven />
 	<mvc:default-servlet-handler />
 
-	<bean
+	<!-- <bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:viewClass="org.springframework.web.servlet.view.JstlView"  
 		p:prefix="/WEB-INF/pages/" 
 		p:suffix=".jsp"  
 		p:order="2"
-	/>
+	/> -->
 	
 	
 </beans>

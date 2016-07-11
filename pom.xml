@@ -12,23 +12,36 @@
 	<properties>
 		<appengine.app.version>1</appengine.app.version>
 		<appengine.version>1.9.38</appengine.version>
+
 		<spring.version>4.3.0.RELEASE</spring.version>
-		<jackson.version>2.7.0</jackson.version>
+		<jackson.version>2.6.3</jackson.version>
+
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+		<objectify.version>5.1.9</objectify.version>
+		<guava.version>18.0</guava.version>
 	</properties>
 
 	<dependencies>
-		<!-- Jackson -->
+		<!-- [START Objectify_Dependencies] -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.objectify</groupId>
+			<artifactId>objectify</artifactId>
+			<version>${objectify.version}</version>
+		</dependency>
+		<!-- [END Objectify_Dependencies] -->
+		<!-- Need this for json to/from object -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
-			<version>${jackson.version}</version>
-		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
