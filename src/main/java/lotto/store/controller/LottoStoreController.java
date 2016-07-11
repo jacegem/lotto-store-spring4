@@ -11,23 +11,25 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 @Controller
 @RequestMapping("/lotto/store")
 public class LottoStoreController {
 	String prefix = "lotto/store/";
 	
-	@Autowired
-	LottoStoreDao dao;
+	@Autowired()
+	LottoStoreService service;
 	
 	@RequestMapping(value = "/list")
 	public String getAddCustomerPage(ModelMap model) {
-		String msg = dao.getMessage();
+		String msg = service.getMessage();
 		System.out.println(msg);
 		return prefix + "list";
 	}
 	
 	@RequestMapping(value = "/save")
-	public String save(ModelMap model) {
+	public String save(ModelMap model) throws Exception {
+		service.save();
 		return prefix + "list";
 	}
 	
