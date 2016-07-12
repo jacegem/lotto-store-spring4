@@ -13,5 +13,5 @@ public class AjaxResponseBody {
 	String code;
 	
 	@JsonView(Views.Public.class)
-	List<User> result;
+	List<LottoStore> lottoStoreList;
 }

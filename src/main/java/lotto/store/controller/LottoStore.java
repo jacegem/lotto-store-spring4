@@ -1,21 +1,28 @@
 package lotto.store.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.googlecode.objectify.annotation.Entity;
+import java.io.Serializable;
 
-/*@Entity // indicates that this is an Entity
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.googlecode.objectify.annotation.Cache;
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
+import com.googlecode.objectify.annotation.Serialize;
+
+@Entity // indicates that this is an Entity
 @Cache  // Annotate your entity classes with @Cache to make them cacheable.
         // The cache is shared by all running instances of your application
         // and can both improve the speed and reduce the cost of your application.
         // Memcache requests are free and typically complete in a couple milliseconds.
         // Datastore requests are metered and typically complete in tens of milliseconds.
-*/
-@Entity
-public class LottoStore {
-	@com.googlecode.objectify.annotation.Id 
-	public Long id;
-	public String name;
+public class LottoStore implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	@Index @Id 
 	@JsonProperty("RTLRID")	private String RTLRID;
 	@JsonProperty("RTLRSTRTELNO")	private String RTLRSTRTELNO;
 	@JsonProperty("RECORDNO")	private int RECORDNO;

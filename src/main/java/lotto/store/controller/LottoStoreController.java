@@ -20,11 +20,12 @@ public class LottoStoreController {
 	@Autowired()
 	LottoStoreService service;
 	
+	@ResponseBody
 	@RequestMapping(value = "/list")
-	public String getAddCustomerPage(ModelMap model) {
-		String msg = service.getMessage();
-		System.out.println(msg);
-		return prefix + "list";
+	public AjaxResponseBody getAddCustomerPage(ModelMap model) throws Exception {
+		AjaxResponseBody result = new AjaxResponseBody();
+		result.lottoStoreList =  service.getList();    	    
+		return result;
 	}
 	
 	@RequestMapping(value = "/save")
